@@ -1,0 +1,22 @@
+server:
+  port: 10000
+
+spring:
+  application:
+    name: eureka-service
+  output:
+    ansi:
+      enabled: always
+
+eureka:
+  server:
+    wait-time-in-ms-when-sync-empty: 0
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 0
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/

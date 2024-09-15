@@ -1,0 +1,40 @@
+server:
+  port: 10001
+
+spring:
+  application:
+    name: config-service
+  profiles:
+    active: native
+  output:
+    ansi:
+      enabled: always
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:config
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:10000/eureka/
+    healthcheck:
+      enabled: true
+
+logging:
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss}){blue} %clr(${LOG_LEVEL_PATTERN:-%5p}) %m%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    sampling:
+      probability: 1.0

@@ -1,0 +1,76 @@
+server:
+  port: 10002
+  forward-headers-strategy: framework
+
+logging:
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss}){blue} %clr([%X{traceId:-},%X{spanId:-}]){cyan} %clr(${LOG_LEVEL_PATTERN:-%5p}) %m%n"
+  level:
+    root: DEBUG
+    org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: TRACE
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.security: TRACE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    sampling:
+      probability: 1.0
+
+spring.cloud.gateway:
+  globalcors:
+    corsConfigurations:
+      "[/**]":
+        allowedOriginPatterns: "*"
+        allowedMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+        allowedHeaders:
+          - authorization
+          - requestor-Type
+          - content-type
+        setMaxAge: 3600
+#  routes:
+#    - id: admin-service
+#      uri: lb://admin-service
+#      predicates:
+#        - Path=/admin/**
+#      filters:
+#        - name: CustomAuthenticationFilter
+#    - id: report-service
+#      uri: lb://report-service
+#      predicates:
+#        - Path=/report/**
+#      filters:
+#        - name: CustomAuthenticationFilter
+#
+#    - id: store-service
+#      uri: lb://store-service
+#      predicates:
+#        - Path=/store/**
+#      filters:
+#        - name: CustomAuthenticationFilter
+  default-filters:
+    - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+
+application:
+  security:
+    jwt:
+      secret-key: v1fxHVZ1+/X/tZSIgj2Tz3owb0pO5JVnsvYoS/GsmC8=
+      expiration: 86400000 # a day
+      refresh-token:
+        expiration: 172800000 # 2 days
+
+# tìm kiếm các dịch vụ đã đăng ký với eureka
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:10000/eureka/

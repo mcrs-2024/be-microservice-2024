@@ -1,0 +1,85 @@
+server:
+  port: 8081
+  forward-headers-strategy: framework
+
+logging:
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss}){blue} %clr([%X{traceId:-},%X{spanId:-}]){cyan} %clr(${LOG_LEVEL_PATTERN:-%5p}) %m%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  tracing:
+    sampling:
+      probability: 1.0
+# ======================
+# DATASOURCE
+# ======================
+
+#  Connection url for the database alinadbdev?currentSchema=qlhanhchinhnhansu
+spring:
+
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+#
+#    properties:
+#      hibernate:
+#        default_schema: admin_service
+#        format_sql: true
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://dpg-cr2biddsvqrc73cmha8g-a.oregon-postgres.render.com:5432/database_mcrs?currentSchema=admin_service
+    username: mcrs
+    password: fFBHB0ZRkEOpdVIlwDRtDpPeaJs0HMJx
+    dbcp2:
+      test-while-idle: true
+      validation-query: SELECT 1
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.SQLServerDialect
+# JWT
+jwt:
+  signerKey: "XX3jXX7J4K2zfBq13azJGXf+zn7VHzQV7cy+IcVNJ1So/cR/9/hh/USAZFeYnkQrZARNQxxvHZvgsPG01oOcsw=="
+  valid-duration: 3600 # in second 5s
+  refreshable-duration: 360000 # in seconds 2 hours
+
+
+jackson:
+  date-format: dd-MM-yyyy HH:mm:ss
+  time-zone: Asia/Ho_Chi_Minh
+
+
+report-service:
+  url: http://localhost:8085/report
+
+# security keyCloak
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/realms/SpringBootKeycloak
+
+#keycloak:
+identity-client:
+  url: http://localhost:8180
+  client-id: spring_boot_app
+  client-secret: hDZlho1BW9YqyYJV6Z4pZVxnh5eqn8Z5
+
+keycloak-name: SpringBootKeycloak
+
+
+
+
+

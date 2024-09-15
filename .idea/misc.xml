@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/ekura/pom.xml" />
+        <option value="$PROJECT_DIR$/spring.clound/ekura/pom.xml" />
+        <option value="$PROJECT_DIR$/spring.clound/gateway/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/spring.clound/eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/spring.clound/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/spring.clound/config/pom.xml" />
+        <option value="$PROJECT_DIR$/springclound/config/pom.xml" />
+        <option value="$PROJECT_DIR$/springclound/eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/springclound/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/libs/core/pom.xml" />
+        <option value="$PROJECT_DIR$/spring/clound/config/pom.xml" />
+        <option value="$PROJECT_DIR$/spring/clound/eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/spring/clound/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/spring/security/amin/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/mcrs/store/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="22" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="jpab" />
+  </component>
+</project>
