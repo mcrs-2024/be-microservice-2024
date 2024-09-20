@@ -15,7 +15,9 @@ import org.hibernate.annotations.CreationTimestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table (name = "users")
+@Table (name = "users", indexes = {
+		@Index(name = "user_unique_index", unique = true, columnList = "username")
+})
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 public class Users implements Serializable {/**
