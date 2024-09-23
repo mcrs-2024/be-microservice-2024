@@ -6,6 +6,7 @@ import com.microservice.admin.service.RolesService;
 import com.microservice.core.constant.ApiResponse;
 import com.microservice.core.admin.constant.ApiUrl;
 import com.microservice.core.constant.Message;
+import com.microservice.core.constant.PageableRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -32,14 +33,14 @@ public class Roles {
 
     @PostMapping("/find")
     public ApiResponse find(
-            @RequestParam(value = "page",defaultValue = "0") Integer page,
+            @RequestParam(value = "page",defaultValue = "1") Integer page,
             @RequestParam(value = "limit",defaultValue = "10") Integer limit
     ){
         return ApiResponse
                 .builder()
                 .code(HttpStatus.OK.value())
                 .message(Message.SUCCESS_QUERY)
-                .data(rolesService.find(page,limit))
+                .data(rolesService.find(PageableRequest.formatPage(page,limit)))
                 .build();
     }
 

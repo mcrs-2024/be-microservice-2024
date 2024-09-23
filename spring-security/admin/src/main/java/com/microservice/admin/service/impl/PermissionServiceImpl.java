@@ -8,6 +8,7 @@ import com.microservice.admin.repository.PermissionRepo;
 import com.microservice.admin.service.PermissionService;
 import com.microservice.core.constant.Message;
 import com.microservice.core.constant.PageListResponse;
+import com.microservice.core.constant.PageableRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,8 +30,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public Object find(Integer page, Integer limit) {
-        Pageable pageable = PageRequest.of(page,limit);
+    public Object find(Pageable pageable) {
         Page<Permission> pages = permissionRepo.findAll(pageable);
         if(pages.isEmpty()){
             return null;

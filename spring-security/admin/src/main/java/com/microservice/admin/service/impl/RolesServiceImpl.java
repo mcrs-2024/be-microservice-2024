@@ -48,8 +48,7 @@ public class RolesServiceImpl implements RolesService {
 
 
 	@Override
-	public Object find(Integer page, Integer limit) {
-		Pageable pageable = PageRequest.of(page,limit);
+	public Object find(Pageable pageable) {
 		Page<Roles> pages = rolesRepo.findAll(pageable);
 		if(pages.isEmpty()){
 			return null;
