@@ -1,9 +1,14 @@
 package com.microservice.admin.service.impl;
 
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.microservice.admin.cloud.openfeign.ReportServiceClient;
+import com.microservice.admin.dto.request.SearchUserRequest;
+import com.microservice.admin.dto.response.UserResponse;
 import com.microservice.admin.mapper.modelmapper.UserMapperModel;
 import com.microservice.core.admin.constant.export.ExportUserDto;
 import com.microservice.core.admin.constant.export.ExportUserRequest;
@@ -15,12 +20,15 @@ import com.microservice.admin.repository.InvalidatedTokenRepo;
 import com.microservice.admin.repository.UsersRepo;
 import com.microservice.admin.service.RolesService;
 import com.microservice.admin.service.UsersService;
+import com.microservice.core.constant.PageResponse;
 import com.microservice.core.constant.RolesConstant;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -56,8 +64,12 @@ public class UserServiceImpl implements UsersService {
 		return userRepo.saveAndFlush(users);
 	}
 	@Override
-	public List<Users> findAll() {
-		return userRepo.findByIsDeleted(Boolean.FALSE);
+	public Object findAll(Pageable pageable, SearchUserRequest searchUserRequest) {
+		Page<Users> usersPage = userRepo.findAll(searchUserRequest.getUsername(), searchUserRequest.getFullName(), searchUserRequest.getEmail(), pageable);
+		if(!usersPage.isEmpty()){
+			return null;
+		}
+		return new PageResponse<>(usersPage.map(userMapper::toDto));
 	}
 
 	@Override

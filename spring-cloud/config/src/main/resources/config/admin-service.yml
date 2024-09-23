@@ -35,14 +35,24 @@ spring:
 #        format_sql: true
 #        dialect: org.hibernate.dialect.PostgreSQLDialect
 
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://dpg-cr2biddsvqrc73cmha8g-a.oregon-postgres.render.com:5432/database_mcrs?currentSchema=admin_service
+#    username: mcrs
+#    password: fFBHB0ZRkEOpdVIlwDRtDpPeaJs0HMJx
+#    dbcp2:
+#      test-while-idle: true
+#      validation-query: SELECT 1
+
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://dpg-cr2biddsvqrc73cmha8g-a.oregon-postgres.render.com:5432/database_mcrs?currentSchema=admin_service
-    username: mcrs
-    password: fFBHB0ZRkEOpdVIlwDRtDpPeaJs0HMJx
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://127.0.0.1:1433;databaseName=admin_service;encrypt=true;trustServerCertificate=true;
+    username: sa
+    password: 123
     dbcp2:
       test-while-idle: true
       validation-query: SELECT 1
+
 #  jpa:
 #    hibernate:
 #      ddl-auto: update
