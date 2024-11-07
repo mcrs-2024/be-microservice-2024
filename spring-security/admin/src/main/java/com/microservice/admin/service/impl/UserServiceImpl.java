@@ -30,12 +30,15 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UsersService {
+public class UserServiceImpl implements UsersService, UserDetailsService {
 	
 	private final BCryptPasswordEncoder bcrytPass = new BCryptPasswordEncoder();
 	private final UsersRepo userRepo;
@@ -116,5 +119,16 @@ public class UserServiceImpl implements UsersService {
 				.typeFile(typeFile)
 				.userResponses(list)
 				.build());
+	}
+
+
+	public Users users(String username) throws UsernameNotFoundException {
+		return userRepo.findByUsername(username);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Users user = userRepo.findByUsername(username);
+		return new Users(user);
 	}
 }

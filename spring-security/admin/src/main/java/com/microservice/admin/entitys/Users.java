@@ -2,6 +2,8 @@ package com.microservice.admin.entitys;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -10,6 +12,8 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Data
@@ -20,7 +24,7 @@ import org.hibernate.annotations.CreationTimestamp;
 })
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class Users implements Serializable {/**
+public class Users implements Serializable, UserDetails {/**
 	 * 
 	 */
 	static final long serialVersionUID = -7866646107417363856L;
@@ -55,5 +59,39 @@ public class Users implements Serializable {/**
 
 	@ManyToMany
 	Set<Roles> roles;
-	
+
+	public Users(Users user){
+		username = user.getUsername();
+		hashPassword = user.getHashPassword();
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return List.of();
+	}
+
+	@Override
+	public String getPassword() {
+		return hashPassword;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
 }

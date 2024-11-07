@@ -4,7 +4,7 @@ package com.microservice.admin.controller;
 import com.microservice.admin.configuration.ConfigJwt;
 import com.microservice.admin.dto.request.RefreshRequest;
 import com.microservice.admin.entitys.Users;
-import com.microservice.admin.service.impl.CustomUserDetailsService;
+import com.microservice.admin.service.impl.UserServiceImpl;
 import com.microservice.core.admin.constant.dto.request.IntrospectRequest;
 import com.microservice.core.admin.constant.dto.response.IntrospectResponse;
 import com.microservice.core.constant.ApiResponse;
@@ -38,7 +38,7 @@ public class Authen {
     @Autowired
     private final AuthenticationManager authenticationManager;
 
-    private final CustomUserDetailsService customUserDetailsService;
+    private final UserServiceImpl customUserDetailsService;
 
     private final ConfigJwt token;
 
@@ -56,7 +56,10 @@ public class Authen {
                     .build()).message(Message.LOGIN_SUCCESS).code(HttpStatus.OK.value()).build();
         } catch (Exception e){
             log.info(e);
-            return null;
+            return ApiResponse.builder()
+                    .message("Login failed: " + e.getMessage())
+                    .code(HttpStatus.UNAUTHORIZED.value())
+                    .build();
         }
     }
 
